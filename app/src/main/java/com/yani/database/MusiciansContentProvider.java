@@ -19,14 +19,14 @@ public class MusiciansContentProvider extends ContentProvider {
 
     static {
         URI_MATCHER = new UriMatcher(UriMatcher.NO_MATCH);
-        URI_MATCHER.addURI(SQLiteHelper.CONTENT_AUTHORITY, MusiciansTable.Requests.TABLE_NAME, MUSICIANS_TABLE);
+        URI_MATCHER.addURI(SqliteHelper.CONTENT_AUTHORITY, MusiciansTable.Requests.TABLE_NAME, MUSICIANS_TABLE);
     }
 
-    private SQLiteHelper sqLiteHelper;
+    private SqliteHelper sqLiteHelper;
 
     @Override
     public boolean onCreate() {
-        sqLiteHelper = new SQLiteHelper(getContext());
+        sqLiteHelper = new SqliteHelper(getContext());
         return true;
     }
 

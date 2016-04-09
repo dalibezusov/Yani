@@ -5,9 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
-import com.yani.Tags;
 import com.yani.content.Cover;
 import com.yani.content.Musician;
 
@@ -16,7 +14,7 @@ import java.util.List;
 
 public class MusiciansTable {
 
-    public static final Uri URI = SQLiteHelper.BASE_CONTENT_URI.buildUpon().appendPath(Requests.TABLE_NAME).build();
+    public static final Uri URI = SqliteHelper.BASE_CONTENT_URI.buildUpon().appendPath(Requests.TABLE_NAME).build();
 
     public static void save(Context context, @NonNull Musician musician) {
         context.getContentResolver().insert(URI, toContentValues(musician));
