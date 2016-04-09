@@ -2,7 +2,7 @@ package com.yani.content;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -12,7 +12,7 @@ public class Musician {
 
     private int id;
     private String name;
-    private ArrayList<String> genres;
+    private List<String> genres;
 
     @SerializedName("tracks")
     private int numberOfTracks;
@@ -21,20 +21,20 @@ public class Musician {
     private int numberOfAlbums;
 
     @SerializedName("link")
-    private String linkToMusicianWebPage;
+    private String linkToWebPage;
 
     private String description;
 
     private Cover cover;
 
-    public Musician(int id, String name, ArrayList<String> genres, int numberOfTracks, int numberOfAlbums,
-                    String linkToMusicianWebPage, String description, Cover cover) {
+    public Musician(int id, String name, List<String> genres, int numberOfTracks, int numberOfAlbums,
+                    String linkToWebPage, String description, Cover cover) {
         this.id = id;
         this.name = name;
         this.genres = genres;
         this.numberOfTracks = numberOfTracks;
         this.numberOfAlbums = numberOfAlbums;
-        this.linkToMusicianWebPage = linkToMusicianWebPage;
+        this.linkToWebPage = linkToWebPage;
         this.description = description;
         this.cover = cover;
     }
@@ -55,11 +55,11 @@ public class Musician {
         this.name = name;
     }
 
-    public ArrayList<String> getGenres() {
+    public List<String> getGenres() {
         return genres;
     }
 
-    public void setGenres(ArrayList<String> genres) {
+    public void setGenres(List<String> genres) {
         this.genres = genres;
     }
 
@@ -79,12 +79,12 @@ public class Musician {
         this.numberOfAlbums = numberOfAlbums;
     }
 
-    public String getLinkToMusicianWebPage() {
-        return linkToMusicianWebPage;
+    public String getLinkToWebPage() {
+        return linkToWebPage;
     }
 
-    public void setLinkToMusicianWebPage(String linkToMusicianWebPage) {
-        this.linkToMusicianWebPage = linkToMusicianWebPage;
+    public void setLinkToWebPage(String linkToWebPage) {
+        this.linkToWebPage = linkToWebPage;
     }
 
     public String getDescription() {
@@ -101,40 +101,6 @@ public class Musician {
 
     public void setCover(Cover cover) {
         this.cover = cover;
-    }
-
-
-    /**
-     *
-     */
-    public class Cover {
-
-        @SerializedName("small")
-        private String linkToSmallCover;
-
-        @SerializedName("big")
-        private String linkToBigCover;
-
-        public Cover(String linkToSmallCover, String linkToBigCover) {
-            this.linkToSmallCover = linkToSmallCover;
-            this.linkToBigCover = linkToBigCover;
-        }
-
-        public String getLinkToSmallCover() {
-            return linkToSmallCover;
-        }
-
-        public void setLinkToSmallCover(String linkToSmallCover) {
-            this.linkToSmallCover = linkToSmallCover;
-        }
-
-        public String getLinkToBigCover() {
-            return linkToBigCover;
-        }
-
-        public void setLinkToBigCover(String linkToBigCover) {
-            this.linkToBigCover = linkToBigCover;
-        }
     }
 
 }

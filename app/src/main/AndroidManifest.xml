@@ -18,6 +18,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+            <provider
+                android:authorities="com.yani.musicians"
+                android:multiprocess="true"
+                android:name=".database.MusiciansContentProvider">
+            </provider>
     </application>
 
 </manifest>
