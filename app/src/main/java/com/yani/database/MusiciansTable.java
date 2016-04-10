@@ -5,7 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
+import com.yani.Tags;
 import com.yani.content.Cover;
 import com.yani.content.Musician;
 
@@ -16,16 +18,20 @@ public class MusiciansTable {
 
     public static final Uri URI = SqliteHelper.BASE_CONTENT_URI.buildUpon().appendPath(Requests.TABLE_NAME).build();
 
+    private static final char STRINGS_SEPARATOR = '_';
+
     public static void save(Context context, @NonNull Musician musician) {
         context.getContentResolver().insert(URI, toContentValues(musician));
     }
 
     public static void save(Context context, List<Musician> musicians) {
-        ContentValues[] values = new ContentValues[musicians.size()];
-        for (int i = 0; i < musicians.size(); i++) {
-            values[i] = toContentValues(musicians.get(i));
+        if (null != musicians) {
+            ContentValues[] values = new ContentValues[musicians.size()];
+            for (int i = 0; i < musicians.size(); i++) {
+                values[i] = toContentValues(musicians.get(i));
+            }
+            context.getContentResolver().bulkInsert(URI, values);
         }
-        context.getContentResolver().bulkInsert(URI, values);
     }
 
     @NonNull
@@ -35,13 +41,8 @@ public class MusiciansTable {
         values.put(Columns.MUS_ID, musician.getId());
         values.put(Columns.NAME, musician.getName());
 
-        String genres = "";
-        if (musician.getGenres() != null) {
-            for (int i = 0; i < musician.getGenres().size(); i++) {
-                genres = genres + musician.getGenres().get(i) + "#";
-            }
-        }
-        values.put(Columns.GENRES, genres);
+        /*Log.i(Tags.INFO_TAG, "genresStr from toContentValues: " + genres);*/
+        values.put(Columns.GENRES, makeGenresString(musician));
 
         values.put(Columns.NUM_OF_TRACKS, musician.getNumberOfTracks());
         values.put(Columns.NUM_OF_ALBUMS, musician.getNumberOfAlbums());
@@ -60,6 +61,7 @@ public class MusiciansTable {
         String name = cursor.getString(cursor.getColumnIndex(Columns.NAME));
 
         List<String> genresList = makeStringList(cursor.getString(cursor.getColumnIndex(Columns.GENRES)));
+        /*Log.i(Tags.INFO_TAG, "genresStr from fromCursor: " + cursor.getString(cursor.getColumnIndex(Columns.GENRES)));*/
 
         int numOfTracks = Integer.parseInt(cursor.getString(cursor.getColumnIndex(Columns.NUM_OF_TRACKS)));
         int numOfAlbums = Integer.parseInt(cursor.getString(cursor.getColumnIndex(Columns.NUM_OF_ALBUMS)));
@@ -73,26 +75,35 @@ public class MusiciansTable {
         return new Musician(mus_id, name, genresList, numOfTracks, numOfAlbums, link, description, cover );
     }
 
+    public static String makeGenresString(Musician musician) {
+        String genres = "";
+        if (musician.getGenres() != null) {
+            for (int i = 0; i < musician.getGenres().size(); i++) {
+                /*genres = genres + musician.getGenres().get(i) + STRINGS_SEPARATOR;*/
+                genres = genres.concat(musician.getGenres().get(i).concat(String.valueOf(STRINGS_SEPARATOR)));
+            }
+        }
+        return genres;
+    }
+
     public static List<String> makeStringList(String genresStr) {
         List<String> genresList = new ArrayList<>();
         String genre = "";
 
         /*Log.i(Tags.INFO_TAG, "genresStr.toCharArray().length: " + genresStr.toCharArray().length);
         Log.i(Tags.INFO_TAG, "genresStr.length(): " + genresStr.length());*/
+        /*Log.i(Tags.INFO_TAG, "genresStr from makeStringList: " + genresStr);*/
         if (genresStr != null) {
             for (int i = 0; i < genresStr.length(); i++) {
-                if ('#' == genresStr.charAt(i)) {
-                /*Log.i(Tags.INFO_TAG, "-");*/
+                if (STRINGS_SEPARATOR == genresStr.charAt(i)) {
                     genresList.add(genre);
                     genre = "";
                 } else {
-                    /*Log.i(Tags.INFO_TAG, "+");*/
-                    /*genre = genre.concat(String.valueOf(genresStr.charAt(i)));*/
-                    genre = genre + String.valueOf(genresStr.charAt(i));
+                    genre = genre.concat(String.valueOf(genresStr.charAt(i)));
+                    /*genre = genre + String.valueOf(genresStr.charAt(i));*/
                 }
             }
         }
-
         return genresList;
     }
 
