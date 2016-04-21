@@ -48,14 +48,15 @@ public class ArtistsListAdapter extends BaseAdapter{
         }
 
         Musician musician = (Musician) getItem(position);
-        String albumsTracksNumText = musician.getNumberOfAlbums() + " альбомов, "
-                + musician.getNumberOfTracks() + " песен";
+        String albumsTracksNumText = StringConverter.assignDeclination(musician.getNumberOfAlbums(), "альбом") + ", "
+                                    + StringConverter.assignDeclination(musician.getNumberOfTracks(), "трэк");
 
         ((ImageView) view.findViewById(R.id.smallArtistImgView)).setImageResource(R.drawable.si);
-        ((TextView) view.findViewById(R.id.musicianNameTxt)).setText(musician.getName());
-        ((TextView) view.findViewById(R.id.genresTxt)).setText(String.valueOf(musician.getGenres()));
-        ((TextView) view.findViewById(R.id.albumsGenresNumTxt)).setText(albumsTracksNumText);
+        ((TextView) view.findViewById(R.id.mainArtistNameTxt)).setText(musician.getName());
+        ((TextView) view.findViewById(R.id.mainGenresTxt)).setText(StringConverter.makeStringFromList(musician.getGenres()));
+        ((TextView) view.findViewById(R.id.mainAlbumsTracksTxt)).setText(albumsTracksNumText);
 
         return view;
     }
+
 }

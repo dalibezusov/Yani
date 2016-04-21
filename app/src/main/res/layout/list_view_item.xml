@@ -3,6 +3,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/white"
     android:weightSum="1">
 
 
@@ -23,19 +24,21 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/muc_name"
+            android:textColor="@color/black"
             android:textSize="16sp"
             android:layout_marginTop="@dimen/activity_text_margin"
-            android:id="@+id/musicianNameTxt" />
+            android:id="@+id/mainArtistNameTxt" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/genre"
+            android:textColor="@color/grey"
             android:textSize="14sp"
-            android:id="@+id/genresTxt"
+            android:id="@+id/mainGenresTxt"
             android:layout_marginTop="@dimen/activity_text_margin"
-            android:layout_below="@+id/musicianNameTxt"
+            android:layout_below="@+id/mainArtistNameTxt"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
 
@@ -43,9 +46,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/grey"
             android:text="@string/albums_tracks"
             android:textSize="14sp"
-            android:id="@+id/albumsGenresNumTxt"
+            android:id="@+id/mainAlbumsTracksTxt"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
