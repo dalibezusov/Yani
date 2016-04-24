@@ -12,7 +12,6 @@
 
         <ImageView
             android:scaleType="centerCrop"
-
             android:layout_width="match_parent"
             android:layout_height="230dp"
             android:id="@+id/bigArtistImgView"

@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.yani.R;
 import com.yani.content.Musician;
 
@@ -48,10 +49,11 @@ public class ArtistsListAdapter extends BaseAdapter{
         }
 
         Musician musician = (Musician) getItem(position);
+
         String albumsTracksNumText = StringConverter.assignDeclination(musician.getNumberOfAlbums(), "альбом") + ", "
                                     + StringConverter.assignDeclination(musician.getNumberOfTracks(), "трэк");
 
-        ((ImageView) view.findViewById(R.id.smallArtistImgView)).setImageResource(R.drawable.si);
+        Picasso.with(context).load(musician.getCover().getLinkToSmallCover()).into((ImageView)view.findViewById(R.id.smallArtistImgView));
         ((TextView) view.findViewById(R.id.mainArtistNameTxt)).setText(musician.getName());
         ((TextView) view.findViewById(R.id.mainGenresTxt)).setText(StringConverter.makeStringFromList(musician.getGenres()));
         ((TextView) view.findViewById(R.id.mainAlbumsTracksTxt)).setText(albumsTracksNumText);

@@ -27,7 +27,7 @@ public class MusicianAsyncTask extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... params) {
 
-        APIService apiService = APIFactory.getWidgetService();
+        APIService apiService = APIFactory.getService();
         Call<List<Musician>> call = apiService.getListOfMusicians();
 
         try {

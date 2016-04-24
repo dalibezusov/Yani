@@ -6,6 +6,7 @@
     android:orientation="vertical"
     tools:context=".ui.MainActivity">
 
+
     <ListView
         android:id="@+id/mainLayout"
         android:layout_width="match_parent"

@@ -2,10 +2,7 @@ package com.yani.async_tasks;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.support.v4.content.AsyncTaskLoader;
-import android.util.Log;
 
-import com.yani.Tags;
 import com.yani.api.APIFactory;
 import com.yani.api.APIService;
 import com.yani.content.Musician;
@@ -19,9 +16,11 @@ import retrofit.Call;
 public class MusicianLoader extends android.content.AsyncTaskLoader<Cursor> {
 
     private List<Musician> musicians = null;
+    Context context;
 
     public MusicianLoader(Context context) {
         super(context);
+        this.context = context;
     }
 
     @Override
@@ -33,7 +32,7 @@ public class MusicianLoader extends android.content.AsyncTaskLoader<Cursor> {
     @Override
     public Cursor loadInBackground() {
 
-        APIService apiService = APIFactory.getWidgetService();
+        APIService apiService = APIFactory.getService();
         Call<List<Musician>> call = apiService.getListOfMusicians();
 
         try {
@@ -43,9 +42,8 @@ public class MusicianLoader extends android.content.AsyncTaskLoader<Cursor> {
         }
 
         MusiciansTable.save(getContext(), musicians);
-        Log.i(Tags.INFO_TAG, "I saved data in DB!");
-        return getContext().getContentResolver().query(MusiciansTable.URI, null, null, null, null);
 
+        return getContext().getContentResolver().query(MusiciansTable.URI, null, null, null, null);
     }
 
 }

@@ -38,7 +38,7 @@ public class APIFactory {
     }
 
     @NonNull
-    public static APIService getWidgetService() {
+    public static APIService getService() {
         return getRetrofit().create(APIService.class);
     }
 }
